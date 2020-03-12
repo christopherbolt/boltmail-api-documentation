@@ -18,7 +18,6 @@ The latest versions of AvangEmail API client libraries are available at [GitHub]
 
 ## Other Integration
 
-- Other Integration
 
 - [AvangPress](https://wordpress.org/plugins/avangpress/)
 
