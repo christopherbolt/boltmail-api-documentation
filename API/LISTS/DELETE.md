@@ -1,32 +1,44 @@
-## Delete list
+# Delete List
 
-Delete a single list   ==(disabled by default)==
+Delete a single list
 
-Replace `TIMESTAMP` with timestamp (string  like '1535093670'), `{LISTID}` with  List Unique Id of each list &  `PUBLICKEY` with public key (get it from [API keys tab](https://app.avangemail.com/customer/api-keys/index) in your panel ), 
+Replace `TIMESTAMP` with timestamp (string  like '1535093670'), `PUBLICKEY` with public key (get it from [API keys tab](https://app.boltmail.nz/customer/api-keys/index) in your panel ) and `{LIST-UNIQUE-ID}` with  List Unique Id of the list.
+
+### HTTP Method
+```
+DELETE
+```
+### Endpoint
+```
+https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID}
+```
+## Code Examples
 
 ### cURL
 
-```cURL
+```shell
 curl -X DELETE \
-  https://avangemail.net/api/lists/{LISTID} \
+  https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID} \
   -H 'X-MW-PUBLIC-KEY: PUBLICKEY' \
   -H 'X-MW-TIMESTAMP: TIMESTAMP'
 ```
 
 ### C# (RestSharp)
 
-```
-var client = new RestClient("https://avangemail.net/api/lists/{LISTID}");
+```csharp
+var client = new RestClient("https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID}");
 var request = new RestRequest(Method.DELETE);
 request.AddHeader("X-MW-TIMESTAMP", "TIMESTAMP");
 request.AddHeader("X-MW-PUBLIC-KEY", "PUBLICKEY");
 IRestResponse response = client.Execute(request);
 ```
 
-### [PHP (with sdk)](https://avangemail.com/docs/#/API/PHPSDK)
+### PHP (with sdk)
+
+[SDK Docs](https://developer.boltmail.nz/#/API/PHPSDK)
 
 ```php
-$response = $endpoint->delete('{LISTID}');
+$response = $endpoint->delete('{LIST-UNIQUE-ID}');
 ```
 
 ### PHP (curl)
@@ -37,7 +49,7 @@ $response = $endpoint->delete('{LISTID}');
 $curl = curl_init();
 $time = time();
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://avangemail.net/api/lists/{LISTID}",
+  CURLOPT_URL => "https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID}",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -68,7 +80,7 @@ if ($err) {
 OkHttpClient client = new OkHttpClient();
 
 Request request = new Request.Builder()
-  .url("https://avangemail.net/api/lists/{LISTID}")
+  .url("https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID}")
   .delete(null)
   .addHeader("X-MW-PUBLIC-KEY", "PUBLICKEY")
   .addHeader("X-MW-TIMESTAMP", "TIMESTAMP")
@@ -83,14 +95,14 @@ Response response = client.newCall(request).execute();
 import http.client
 import time
 
-conn = http.client.HTTPConnection("avangemail,net")
+conn = http.client.HTTPConnection("app.boltmail.nz")
 
 headers = {
     'X-MW-PUBLIC-KEY': "PUBLICKEY",
     'X-MW-TIMESTAMP': str(time.time())
     }
 
-conn.request("DELETE", "api,lists,{LISTID}", headers=headers)
+conn.request("DELETE", "/api/lists/{LIST-UNIQUE-ID}", headers=headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -104,7 +116,7 @@ print(data.decode("utf-8"))
 require 'uri'
 require 'net/https'
 
-url = URI("https://avangemail.net/api/lists/{LISTID}")
+url = URI("https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID}")
 
 http = Net::HTTP.new(url.host, url.port)
 
@@ -122,7 +134,7 @@ puts response.read_body
 var request = require("request");
 var options = {
     method: 'DELETE',
-    url: 'https://avangemail.net/api/lists/{LISTID}',
+    url: 'https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID}',
     headers:{
         'X-MW-TIMESTAMP': new Date().getTime(),
         'X-MW-PUBLIC-KEY': 'PUBLICKEY'

@@ -1,12 +1,26 @@
-## Add Subscriber
+# Add Subscriber
 
-Replace `TIMESTAMP` with timestamp (string  like '1535093670'), `{LISTID}` with  List Unique Id of each list &  `PUBLICKEY` with public key (get it from [API keys tab](https://app.avangemail.com/customer/api-keys/index) in your panel ), 
+Add a new subscriber to a list
 
-#### Request Body Parameters
+Replace `TIMESTAMP` with timestamp (string  like '1535093670'), `PUBLICKEY` with public key (get it from [API keys tab](https://app.boltmail.nz/customer/api-keys/index) in your panel ) and `{LIST-UNIQUE-ID}` with  List Unique Id of the list.
 
-Note, you should send data with `x-www-form-urlencoded` or `multipart/form-data` , `and application/json` not support
+### HTTP Method
+```
+POST
+```
+### Endpoint
+```
+https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID}/subscribers
+```
+### Request Body Parameters
 
-Example data:
+Note, you should send data with `x-www-form-urlencoded`
+
+Each parameter should be the TAG for a custom list field, the fields available on a list will vary. The EMAIL field is required. See the FIELDS endpoints for managing the fields available on a list.
+
+Note that the new subscriber's status is determined by the 'opt_in' setting on the list. If this value is set to 'single' then the new subscriber will have a status of confirmed. But if the list's opt_in value is 'double' then the subscriber will have a status of 'unconfirmed' and the system will send them a confirmation email with a link they must click to confirm their subscription. Only confirmed subscribers will receive the email campaigns that you send. 
+
+Example data structure, this should be serialized into x-www-form-urlencoded format:
 
 ```
 {
@@ -16,11 +30,35 @@ Example data:
 }
 ```
 
+### Example Response
+
+The API will respond with the data record for the new subscriber. This will include the subscriber's Unique Id, you will need this to perform further actions against the subscriber
+
+```json
+{
+    "status": "success",
+    "data": {
+        "record": {
+            "subscriber_uid": "ps9129raz7401",
+            "email": "john.doe@doe.com",
+            "ip_address": "127.0.0.1",
+            "source": "api",
+            "date_added": {
+                "expression": "NOW()",
+                "params": []
+            }
+        }
+    }
+}
+```
+
+## Code Examples
+
 ### cURL
 
-```cURL
+```shell
 curl -X POST \
-  https://avangemail.net/api/lists/{LISTID}/subscribers \
+  https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID}/subscribers \
   -H 'Content-Type: application/x-www-form-urlencoded' \
   -H 'X-MW-PUBLIC-KEY: PUBLICKEY' \
   -H 'X-MW-TIMESTAMP: TIMESTAMP' \
@@ -29,8 +67,8 @@ curl -X POST \
 
 ### C# (RestSharp)
 
-```
-var client = new RestClient("https://avangemail.net/api/lists/{LISTID}/subscribers");
+```csharp
+var client = new RestClient("https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID}/subscribers");
 var request = new RestRequest(Method.POST);
 request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
 request.AddHeader("X-MW-TIMESTAMP", "TIMESTAMP");
@@ -39,10 +77,12 @@ request.AddParameter("undefined", "EMAIL=john.doe%40doe.com&FNAME=John&LNAME=Doe
 IRestResponse response = client.Execute(request);
 ```
 
-### [PHP (with sdk)](https://avangemail.com/docs/#/API/PHPSDK)
+### PHP (with sdk)
+
+[SDK Docs](https://developer.boltmail.nz/#/API/PHPSDK)
 
 ```php
-$response = $endpoint->create('{LISTID}', array(
+$response = $endpoint->create('{LIST-UNIQUE-ID}', array(
     'EMAIL'    => 'john.doe@doe.com', 
     'FNAME'    => 'John',
     'LNAME'    => 'Doe'
@@ -57,7 +97,7 @@ $response = $endpoint->create('{LISTID}', array(
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://avangemail.net/api/lists/{LISTID}/subscribers",
+  CURLOPT_URL => "https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID}/subscribers",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -92,7 +132,7 @@ OkHttpClient client = new OkHttpClient();
 MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
 RequestBody body = RequestBody.create(mediaType, "EMAIL=john.doe%40doe.com&FNAME=John&LNAME=Doe");
 Request request = new Request.Builder()
-  .url("https://avangemail.net/api/lists/{LISTID}/subscribers")
+  .url("https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID}/subscribers")
   .post(body)
   .addHeader("X-MW-PUBLIC-KEY", "PUBLICKEY")
   .addHeader("X-MW-TIMESTAMP", "TIMESTAMP")
@@ -107,7 +147,7 @@ Response response = client.newCall(request).execute();
 ```python
 import http.client
 import time
-conn = http.client.HTTPConnection("avangemail,net")
+conn = http.client.HTTPConnection("app.boltmail.nz")
 
 payload = "EMAIL=john.doe%40doe.com&FNAME=John&LNAME=Doe"
 
@@ -117,7 +157,7 @@ headers = {
     'Content-Type': "application/x-www-form-urlencoded"
     }
 
-conn.request("POST", "api,lists,{LISTID},subscribers", payload, headers)
+conn.request("POST", "/api/lists/{LIST-UNIQUE-ID}/subscribers", payload, headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -131,7 +171,7 @@ print(data.decode("utf-8"))
 require 'uri'
 require 'net/https'
 
-url = URI("https://avangemail.net/api/lists/{LISTID}/subscribers")
+url = URI("https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID}/subscribers")
 
 http = Net::HTTP.new(url.host, url.port)
 
@@ -151,7 +191,7 @@ puts response.read_body
 var request = require("request");
 
 var options = { method: 'POST',
-  url: 'https://avangemail.net/api/lists/{LISTID}/subscribers',
+  url: 'https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID}/subscribers',
   headers: 
    { 'Content-Type': 'application/x-www-form-urlencoded',
      'X-MW-TIMESTAMP': new Date().getTime(),

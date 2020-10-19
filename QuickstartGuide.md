@@ -2,13 +2,13 @@
 
 # Quickstart Guide 
 
-Send email from your app (such as Laravel, WordPress and and etc), with SMTP and API. With sign up in AvangEmail, you'll have a unique token which you can use to authenticate against our SMTP service or our HTTP API.
+Send email from your app (such as Laravel, WordPress and and etc), with SMTP and API. With sign up in BoltMail, you'll have a unique token which you can use to authenticate against our SMTP service or our HTTP API.
 
 
 
 ## Verify Domain
 
-To set up domain for sending, you should add it to your AvangEmail account, and verify that in some step. First of all domain should be accessible . With verify your domain, you will show that authorized sender,not show sent via avangemail.com, positive reputation for your domain.
+To set up domain for sending, you should add it to your BoltMail account, and verify that in some step. First of all domain should be accessible . With verify your domain, you will show that authorized sender,not show sent via avangemail.com, positive reputation for your domain.
 
 ### How to verify your domain
 

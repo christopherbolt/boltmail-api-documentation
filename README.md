@@ -1,24 +1,25 @@
-# What is AvangEmail?
+# BoltMail Developer Documentation
 
-AvangEmail is an email marketing with simplicity approach for Startups. We think PHP language and tools around it (WordPress, WooCommerce, Joomla and etc), is the best for startups. So at the moment, we have focused on it.
+This page contains developer API documentation for BoltMail
 
-**Forever Free plan**,
-500 free subscribers with All features are included in the Forever Free plan, and even 1200 subscribers If you authenticate your domain,
- If you have more subscribers –  check out our [affordable price](https://avangemail.com/pricing)
-
-## Avang API Libraries
-
-The latest versions of AvangEmail API client libraries are available at [GitHub](https://github.com/avangdev).
-
-- [PHP wrapper for Avang Marketing Automation](https://github.com/avangdev/avang-php)
-
-- [PHP wrapper for Send mail using SMTP & API](https://github.com/avangdev/avang-php-sendemail-api)
-
-  
-
-## Other Integration
+BoltMail is a SASS email marketing software platform available from [www.boltmail.nz](https://www.boltmail.nz).
 
 
-- [AvangPress](https://wordpress.org/plugins/avangpress/)
 
-![](https://raw.githubusercontent.com/avangemail/documentation/master/img/integrate.jpg)
+### 3rd Party API SDK Libraries
+
+BoltMail is compatible with the MailWizz Email Marketing API. 3rd party implementations of this API can be found here:
+
+https://github.com/twisted1919/mailwizz-php-sdk - The PHP SDK
+
+https://github.com/twisted1919/mailwizz-python-sdk - The Python SDK.
+
+https://github.com/twisted1919/mailwizz-ruby-sdk - The Ruby SDK.
+
+https://github.com/thangtx/mailwizzphpapi-wrap - A small rest app that acts as a proxy between mailwizz and any other software.
+
+https://www.npmjs.com/package/node-mailwizz - Node.js implementations
+
+When using a third party SDK the API URL must be set to https://app.boltmail.nz/api/
+
+

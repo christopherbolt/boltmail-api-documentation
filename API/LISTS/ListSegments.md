@@ -1,32 +1,71 @@
-## Returns Lists
+# Get Segments
 
-Returns lists  
+Get all segments from a list
 
-Replace `TIMESTAMP` with timestamp (string  like '1535093670'), `PUBLICKEY` with public key (get it from [API keys tab](https://app.avangemail.com/customer/api-keys/index) in your panel )
+Segments are filtered views within a list. You cannot currently create a segment from the API, you must use the web interface.
+
+Replace `TIMESTAMP` with timestamp (string like '1535093670'), `PUBLICKEY` with public key (get it from [API keys tab](https://app.boltmail.nz/customer/api-keys/index) in your panel ) and `{LIST-UNIQUE-ID}` with  List Unique Id of the list.
+
+### HTTP Method
+```
+GET
+```
+### Endpoint
+```
+https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID}/segments
+```
+### Example Response
+
+```json
+{
+    "status": "success",
+    "data": {
+        "count": "2",
+        "total_pages": 1,
+        "current_page": 1,
+        "next_page": null,
+        "prev_page": null,
+        "records": [
+            {
+                "segment_uid": "ay126yy236d31",
+                "name": "Eample segment 1",
+                "subscribers_count": "20"
+            },
+            {
+                "segment_uid": "xy895p9x8seb5",
+                "name": "Example segment 3",
+                "subscribers_count": "240"
+            }
+        ]
+    }
+}
+```
+
+## Code Examples
 
 ### cURL
 
-```cURL
+```shell
 curl -X GET \
-  https://avangemail.net/api/lists \
+  https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID}/segments \
   -H 'X-MW-PUBLIC-KEY: PUBLICKEY' \
   -H 'X-MW-TIMESTAMP: TIMESTAMP'
 ```
 
 ### C# (RestSharp)
 
-```
-var client = new RestClient("https://avangemail.net/api/lists");
+```csharp
+var client = new RestClient("https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID}/segments");
 var request = new RestRequest(Method.GET);
 request.AddHeader("X-MW-TIMESTAMP", "TIMESTAMP");
 request.AddHeader("X-MW-PUBLIC-KEY", "PUBLICKEY");
 IRestResponse response = client.Execute(request);
 ```
 
-### [PHP (with sdk)](https://avangemail.com/docs/#/API/PHPSDK)
+### [PHP (with sdk)](https://developer.boltmail.nz/#/API/PHPSDK)
 
 ```php
-$response = $endpoint->getLists($pageNumber = 1, $perPage = 10);
+$response = $endpoint->getSegments('{LISTID}');
 ```
 
 ### PHP (curl)
@@ -37,7 +76,7 @@ $response = $endpoint->getLists($pageNumber = 1, $perPage = 10);
 $curl = curl_init();
 $time = time();
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://avangemail.net/api/lists",
+  CURLOPT_URL => "https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID}/segments",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -68,7 +107,7 @@ if ($err) {
 OkHttpClient client = new OkHttpClient();
 
 Request request = new Request.Builder()
-  .url("https://avangemail.net/api/lists")
+  .url("https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID}/segments")
   .get()
   .addHeader("X-MW-PUBLIC-KEY", "PUBLICKEY")
   .addHeader("X-MW-TIMESTAMP", "TIMESTAMP")
@@ -83,14 +122,13 @@ Response response = client.newCall(request).execute();
 import http.client
 import time
 
-conn = http.client.HTTPConnection("avangemail,net")
+conn = http.client.HTTPConnection("app.boltmail.nz")
 
 headers = {
     'X-MW-PUBLIC-KEY': "PUBLICKEY",
     'X-MW-TIMESTAMP': str(time.time())
     }
-
-conn.request("GET", "api,lists", headers=headers)
+conn.request("GET", "/api/lists/{LIST-UNIQUE-ID}/segments", headers=headers)
 
 res = conn.getresponse()
 data = res.read()
@@ -104,7 +142,7 @@ print(data.decode("utf-8"))
 require 'uri'
 require 'net/https'
 
-url = URI("https://avangemail.net/api/lists")
+url = URI("https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID}/segments")
 
 http = Net::HTTP.new(url.host, url.port)
 
@@ -122,7 +160,7 @@ puts response.read_body
 var request = require("request");
 var options = {
     method: 'GET',
-    url: 'https://avangemail.net/api/lists',
+    url: 'https://app.boltmail.nz/api/lists/{LIST-UNIQUE-ID}/segments',
     headers:{
         'X-MW-TIMESTAMP': new Date().getTime(),
         'X-MW-PUBLIC-KEY': 'PUBLICKEY'
@@ -133,3 +171,4 @@ request(options, function (error, response, body) {
     console.log(body);
 });
 ```
+

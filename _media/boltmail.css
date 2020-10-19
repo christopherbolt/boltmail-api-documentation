@@ -1,0 +1,8 @@
+/* CSS Document */
+h1.app-name {
+	text-align: left;
+}
+a.app-name-link img {
+	width: 70%;
+	margin-left: 15px;
+}
